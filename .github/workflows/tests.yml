@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  testen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        run: pip install pytest
+
+      - name: Tests ausführen
+        run: pytest --tb=short --junitxml=testergebnisse.xml
+
+      - name: Testergebnisse speichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: testergebnisse
+          path: testergebnisse.xml
