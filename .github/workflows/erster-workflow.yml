@@ -1,0 +1,17 @@
+name: Erster Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hallo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Begrüßung ausgeben
+        run: echo "Der Workflow läuft."
+
+      - name: Branch anzeigen
+        run: 'echo "Aktueller Branch: ${{ github.ref_name }}"'
